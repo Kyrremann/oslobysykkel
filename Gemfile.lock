@@ -52,6 +52,7 @@ GEM
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     public_suffix (3.0.2)
+    puma (3.11.4)
     rack (2.0.5)
     rack-protection (2.0.3)
       rack
@@ -89,6 +90,7 @@ PLATFORMS
 DEPENDENCIES
   dotenv-rails
   http (~> 3.3)
+  puma (~> 3.11, >= 3.11.4)
   sinatra (~> 2.0, >= 2.0.3)
 
 RUBY VERSION
