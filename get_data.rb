@@ -1,7 +1,7 @@
 require 'http'
 require 'json'
 
-unless ENV['RACK_ENV'] == 'PRODUCTION'
+unless ENV['RACK_ENV'] == 'production'
   require 'dotenv/load'
 end
 
