@@ -27,15 +27,21 @@ def main
   p "Have #{stations.length} stations to POST"
   stations.each do |data|
     id = data['id']
+    name = Station.find(station_id: id)
+    unless name
+      p "No station with id #{id}"
+      next
+    end
+
     bikes = data['availability']['bikes']
     locks = data['availability']['locks']
 
     res = http.post("#{ENV['CORLYSIS_SERVER']}/write?db=#{ENV['CORLYSIS_DATABASE']}",
-                    body: "bysykkel,station=#{id},type=bikes value=#{bikes}")
+                    body: "bysykkel,station_name=#{name},station_id=#{id},type=bikes value=#{bikes}")
     p unless res.status.success?
     
     res = http.post("#{ENV['CORLYSIS_SERVER']}/write?db=#{ENV['CORLYSIS_DATABASE']}",
-              body: "bysykkel,station=#{id},type=locks value=#{locks}")
+              body: "bysykkel,station_name=#{name},station_id=#{id},type=locks value=#{locks}")
     p unless res.status.success?
   end
 end
