@@ -1,6 +1,8 @@
 require 'http'
 require 'json'
 
+require_relative 'models/init'
+
 unless ENV['RACK_ENV'] == 'production'
   require 'dotenv/load'
 end
