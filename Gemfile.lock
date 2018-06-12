@@ -94,6 +94,7 @@ DEPENDENCIES
   http (~> 3.3)
   pg (~> 1.0)
   puma (~> 3.11, >= 3.11.4)
+  rake (~> 12.3, >= 12.3.1)
   sequel (~> 5.9)
   sinatra (~> 2.0, >= 2.0.3)
 
