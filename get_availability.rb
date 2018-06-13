@@ -29,12 +29,13 @@ def main
   p "Have #{stations.length} stations to POST"
   stations.each do |data|
     id = data['id']
-    name = Station.find(station_id: id).title
-    unless name
+    station = Station.find(station_id: id)
+    unless station
       p "No station with id #{id}"
       next
     end
 
+    name = station.title
     bikes = data['availability']['bikes']
     locks = data['availability']['locks']
 

@@ -28,7 +28,7 @@ def main
     id = station['id']
     next if Station.find(station_id: id)
 
-    Station.create(station_id: id,
+    Station.create(station_id: id.to_i,
                    title: station['title'],
                    subtitle: station['subtitle'],
                    number_of_locks: station['number_of_locks'].to_i)
