@@ -24,10 +24,12 @@ def main
   return unless json
 
   stations = json['stations']
+  p "Got #{stations.length} stations"
   stations.each do |station|
     id = station['id']
     next if Station.find(station_id: id)
 
+    p "Adding new stations(id: #{id}, name: #{station['title']})"
     Station.create(station_id: id.to_i,
                    title: station['title'],
                    subtitle: station['subtitle'],
