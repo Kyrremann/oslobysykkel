@@ -1,0 +1,20 @@
+.l-content.information
+  %p
+    = "All stations closed: #{status['all_stations_closed'] ? 'Yes' : 'No'}"
+
+.l-content.information.pure-g
+  .pure-u-1
+    %table.pure-table.pure-table-striped{style: "width: 100%;"}
+      %thead
+        %tr
+          %th ID
+          %th Title
+          %th Subtitles
+          %th # locks
+        %tbody
+          - status['stations_closed'].each do |station|
+            %tr
+              %td
+                = station.station_id
+              %td
+                = station
