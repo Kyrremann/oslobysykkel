@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '~> 2.5.0'
+ruby '2.5.1'
 
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'haml', '~> 5.0', '>= 5.0.4'
