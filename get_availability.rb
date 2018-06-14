@@ -7,6 +7,16 @@ unless ENV['RACK_ENV'] == 'production'
   require 'dotenv/load'
 end
 
+def influxlize_value(str)
+  str = str.gsub('Æ', 'AE')
+  str = str.gsub('æ', 'ae')
+  str = str.gsub('Ø', 'OE')
+  str = str.gsub('ø', 'oe')
+  str = str.gsub('Å', 'AA')
+  str = str.gsub('å', 'aa')
+  str = str.gsub(' ', '\ ')
+end
+
 def get_bike_availability
   http = HTTP
            .headers('Client-Identifier': "#{ENV['BYSYKKEL_TOKEN']}")
@@ -32,20 +42,29 @@ def main
     station = Station.find(station_id: id)
     unless station
       p "No station with id #{id}"
+      p data
       next
     end
 
-    name = station.title
+    name = influxlize_value(station.title)
     bikes = data['availability']['bikes']
     locks = data['availability']['locks']
 
+    body = "bysykkel,station_name=#{name},station_id=#{id},type=bikes value=#{bikes}"
     res = http.post("#{ENV['CORLYSIS_SERVER']}/write?db=#{ENV['CORLYSIS_DATABASE']}",
-                    body: "bysykkel,station_name=#{name},station_id=#{id},type=bikes value=#{bikes}")
-    p unless res.status.success?
-    
+                    body: body)
+    unless res.status.success?
+      p res
+      p body
+    end
+
+    body = "bysykkel,station_name=#{name},station_id=#{id},type=locks value=#{locks}"
     res = http.post("#{ENV['CORLYSIS_SERVER']}/write?db=#{ENV['CORLYSIS_DATABASE']}",
-              body: "bysykkel,station_name=#{name},station_id=#{id},type=locks value=#{locks}")
-    p unless res.status.success?
+                    body: body)
+    unless res.status.success?
+      p res
+      p body
+    end
   end
 end
 
