@@ -8,7 +8,7 @@ Oslo bysykkel
 
 Trenger en Postgres-database. Kan kjøres opp lokalt med Docker:
 ```bash
-docker run --name postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=oslobyskkel -p 5432:5432 -d postgres:latest
+docker run --name postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=oslobysykkel -p 5432:5432 -d postgres:latest
 ```
 
 Har du allerede en Postgres-container kjørende, så kan du bruke følgende kommando for å legge til en ny database:
