@@ -1,5 +1,6 @@
 require 'haml'
 require 'http'
+require 'influxdb'
 require 'json'
 require 'sinatra'
 
@@ -8,6 +9,9 @@ require_relative 'models/init'
 unless ENV['RACK_ENV'] == 'production'
   require 'dotenv/load'
 end
+
+url = 'https://token:36bc23251b8daa719ee14227c82715c4@corlysis.com:8086/oslobysykkel'
+INFLUXDB = InfluxDB::Client.new(url: url)
 
 get '/status' do
   http = HTTP
@@ -21,9 +25,26 @@ get '/status' do
   end
 end
 
-get '/:station_id' do |station_id|
+get '/stations/:station_id' do |station_id|
   station = Station.find(station_id: station_id)
-  haml(:station, locals: { station: station })
+
+  yesterday = Date.today - 1
+  dataset = INFLUXDB.query("select type, value from bysykkel where station_id = '#{station.station_id}' and time >= '#{yesterday.to_s}'")
+  dataset = dataset.first['values']
+  bikes = []
+  locks = []
+  time = []
+  dataset.each do |data|
+    time << DateTime.parse(data['time']).strftime('%H:%M')
+    type = data['type']
+    if type == 'locks'
+      locks << data['value']
+    elsif type == 'bikes'
+      bikes << data['value']
+    end
+  end
+
+  haml(:station, locals: { station: station, time: time.uniq, bikes: bikes, locks: locks })
 end
 
 get '/' do

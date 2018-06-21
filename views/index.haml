@@ -15,7 +15,7 @@
         - Station.each do |station|
           %tr
             %td
-              %a{href: "/#{station.station_id}"}
+              %a{href: "/stations/#{station.station_id}"}
                 = station.station_id
             %td
               = station.title

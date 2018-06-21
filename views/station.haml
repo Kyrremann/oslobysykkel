@@ -5,3 +5,35 @@
 = station.subtitle
 %br
 = station.number_of_locks
+%br
+%br
+%canvas#station
+
+:javascript
+  var ctx = document.getElementById("station").getContext('2d');
+  var bikes = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: #{time},
+          datasets: [{
+              label: 'bikes',
+              data: #{bikes},
+              fill: false,
+              backgroundColor: "rgba(56, 255, 56, 0.2)",
+              borderColor: "rgba(56, 255, 56, 1)",
+              lineTension: 0.1
+          },{
+              label: 'locks',
+              data: #{locks},
+              fill: false,
+              backgroundColor: "rgba(255, 99, 132, 0.2)",
+              borderColor: "rgba(255, 99, 132, 1)",
+              lineTension: 0.1
+          }]
+      },
+      options: {
+          tooltips: {
+            mode: "index"
+        }
+      }
+  });

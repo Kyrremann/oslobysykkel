@@ -45,6 +45,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
+    influxdb (0.5.3)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -97,6 +98,7 @@ DEPENDENCIES
   dotenv-rails
   haml (~> 5.0, >= 5.0.4)
   http (~> 3.3)
+  influxdb (~> 0.5.3)
   pg (~> 1.0)
   puma (~> 3.11, >= 3.11.4)
   rake (~> 12.3, >= 12.3.1)
