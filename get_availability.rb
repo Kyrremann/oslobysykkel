@@ -15,6 +15,8 @@ def influxlize_value(str)
   str = str.gsub('Å', 'AA')
   str = str.gsub('å', 'aa')
   str = str.gsub(' ', '\ ')
+  str = str.gsub('é', 'e')
+  str = str.gsub('ü', 'u')
 end
 
 def get_bike_availability
