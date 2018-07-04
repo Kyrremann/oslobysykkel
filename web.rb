@@ -29,22 +29,27 @@ get '/stations/:station_id' do |station_id|
   station = Station.find(station_id: station_id)
 
   yesterday = Date.today - 1
-  dataset = INFLUXDB.query("select type, value from bysykkel where station_id = '#{station.station_id}' and time >= '#{yesterday.to_s}'")
+  dataset = INFLUXDB.query("select type, value from bysykkel where station_id = '#{station.station_id}' and time >= '#{yesterday.to_s}' tz('Europe/Oslo')")
   dataset = dataset.first['values']
   bikes = []
   locks = []
   time = []
   dataset.each do |data|
-    time << DateTime.parse(data['time']).strftime('%H:%M')
     type = data['type']
     if type == 'locks'
       locks << data['value']
     elsif type == 'bikes'
       bikes << data['value']
     end
+    # we only need on set of times, so we skip times for locks
+    time << DateTime.parse(data['time']).strftime('%H:%M') unless type == 'locks'
   end
 
-  haml(:station, locals: { station: station, time: time.uniq, bikes: bikes, locks: locks })
+  haml(:station, locals: { station: station,
+                           time: time,
+                           bikes: bikes,
+                           locks: locks,
+                           title: "#{station.station_id}: #{station.title}" })
 end
 
 get '/' do
