@@ -1,13 +1,9 @@
-= station.station_id
-%br
-= station.title
-%br
-= station.subtitle
-%br
-= station.number_of_locks
-%br
-%br
-%canvas#station
+.header
+  %h1
+    = station.title
+  %h2
+    = "#{station.subtitle} (#{station.number_of_locks} låser)"
+%canvas#station{height: 125}
 
 :javascript
   var ctx = document.getElementById("station").getContext('2d');

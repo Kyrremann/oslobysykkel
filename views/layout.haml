@@ -1,11 +1,16 @@
 !!! 5
 %html
   %head
-    %title Lek med Oslo bysykkel API
+    %title
+      = locals[:title] || "Lek med Oslo bysykkel API"
+    %meta{charset: "utf-8"}/
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
     %link{crossorigin: "anonymous", href: "https://unpkg.com/purecss@1.0.0/build/pure-min.css", integrity: "sha384-", rel: "stylesheet"}/
     %link{href: "https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css", rel: "stylesheet"}/
+    %link{href: "/css/style.css", rel: "stylesheet"}/
     %script{src: "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"}
 
   %body
-    = yield
+    #layout
+      #main
+      = yield
