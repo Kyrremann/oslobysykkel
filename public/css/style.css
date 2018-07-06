@@ -76,3 +76,36 @@ Hides the menu at `48em`, but modify this based on your app's needs.
         padding-right: 2em;
     }
 }
+
+
+/*
+ * -- SORT --
+ */
+.sort:after {
+  display:inline-block;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  content:"";
+  position: relative;
+  top:-10px;
+  right:-5px;
+}
+.sort.asc:after {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000;
+  content:"";
+  position: relative;
+  top:4px;
+  right:-5px;
+}
+.sort.desc:after {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #000;
+  content:"";
+  position: relative;
+  top:-4px;
+  right:-5px;
+}

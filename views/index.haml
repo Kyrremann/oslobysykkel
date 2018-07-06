@@ -5,20 +5,28 @@
     En oversikt over sykler og låser på stativene i Oslo over tid
 
 .content
-  .pure-u-1
+  .pure-u-1#stations
+    %input.search{placeholder: "Filter"}/
     %table.pure-table.pure-table-striped{style: "width: 100%;"}
       %thead
         %tr
-          %th Stativ
+          %th.sort{'data-sort': 'title'} Stativ
           %th Beskrivelse
-          %th # låser
+          %th.sort{'data-sort': 'locks'} # låser
       %tbody.list
         - Station.each do |station|
           %tr
             %td
-              %a{href: "/stations/#{station.station_id}"}
+              %a.title{href: "/stations/#{station.station_id}"}
                 = station.title
             %td
               = station.subtitle
-            %td
+            %td.locks
               = station.number_of_locks
+
+:javascript
+  let options = {
+    valueNames: [ 'title', 'locks' ]
+  };
+
+  let stations = new List('stations', options);
